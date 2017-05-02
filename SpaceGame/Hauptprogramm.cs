@@ -92,6 +92,14 @@ namespace SpaceGame
             s2.Metall = 50;
             s2.Spookies = 1000;
             s2.Bewohner = 300;
+            
+            Sektor s3 = new Sektor();
+            s3.Name = "azeroth";
+            s3.X = 1;
+            s3.Y = 0;
+            s3.Metall = 350;
+            s3.Spookies = 1430;
+            s3.Bewohner = 250;
 
             SpaceGame.Daten.Sektoren.Add(s0);
             SpaceGame.Daten.Sektoren.Add(s1);
@@ -99,8 +107,10 @@ namespace SpaceGame
 
             Faktion polizei = new Faktion("poli", "zei", "Raumpolizei");
             Faktion piraten = new Faktion("pi", "raten", "FiesRaumPiraten");
+            Faktion piraten = new Faktion("moe", "nch", "FriedvollMoenche");
             SpaceGame.Daten.Faktionen.Add(polizei);
             SpaceGame.Daten.Faktionen.Add(piraten);
+            SpaceGame.Daten.Faktionen.Add(moench);
 
             Einheit streifealpha = new Einheit(polizei, "Weltraumstreife Alpha");
             streifealpha.Mitglieder = 10;
@@ -125,6 +135,12 @@ namespace SpaceGame
             pirat3.Metall = 100;
             pirat3.Spookies = 800;
             s1.Einheiten.Add(pirat3);
+            
+            Einheit moench1 = new Einheit(moench, "Zen Moenche");
+            moench1.Mitglieder = 5;
+            moench1.Metall = 100;
+            moench1.Spookies = 150;
+            s0.Einheiten.Add(moench1);
 
         }
     }
