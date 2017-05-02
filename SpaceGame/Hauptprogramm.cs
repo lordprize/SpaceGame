@@ -7,6 +7,11 @@ namespace SpaceGame
     {
         static void Main(string[] args)
         {
+            // ToDo:
+            // - Befehle definieren
+            // - Befehle einlesen und bearbeiten
+            // - Auswertungen für jede Faktion einzeln ausgeben
+
             SpaceGame.Laden("test.xml");
             TestdatenErzeugen();
             foreach(Sektor s in SpaceGame.Daten.Sektoren)
