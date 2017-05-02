@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace SpaceGame
 {
     public static class SpaceGame {
-        private static SpaceGameData daten;
+        private static SpaceGameData daten = new SpaceGameData();
 
         public static SpaceGameData Daten
         {
