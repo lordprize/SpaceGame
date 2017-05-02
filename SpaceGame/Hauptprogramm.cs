@@ -12,6 +12,7 @@ namespace SpaceGame
             // - Befehle definieren
             //   - Befehl NACH zum Bewegen
             //   - Befehl ATTACKIERE zum Angreifen
+            //   - Befehl ERPRESSE gibt eigenen Fraktion mehr Resourcen
             // - Befehle einlesen und bearbeiten
             // - Auswertungen für jede Faktion einzeln ausgeben
 
