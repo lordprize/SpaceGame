@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace SpaceGame
 {
@@ -13,12 +14,50 @@ namespace SpaceGame
             // - Auswertungen für jede Faktion einzeln ausgeben
 
             SpaceGame.Laden("test.xml");
-            TestdatenErzeugen();
+            Console.WriteLine("Spiel geladen");
+            //TestdatenErzeugen();
+
+            SimuliereRunde();
+
+            StreamWriter auswertung = File.CreateText("auswertung-" + SpaceGame.Daten.Runde + ".txt");
+            auswertung.WriteLine("Auswertung für SpaceGame, Runde " + SpaceGame.Daten.Runde);
             foreach(Sektor s in SpaceGame.Daten.Sektoren)
             {
-                Console.WriteLine(s); 
+                auswertung.WriteLine(s);
             }
+            auswertung.WriteLine("Ende der Auswertung.");
+            auswertung.Close();
+            Console.WriteLine("Auswertung fertig geschrieben");
+
             SpaceGame.Speichern("test.xml");
+            Console.WriteLine("Spiel gespeichert");
+        }
+
+        static void SimuliereRunde()
+        {
+            SpaceGame.Daten.Runde++;
+            Console.WriteLine("Simuliere Runde " + SpaceGame.Daten.Runde);
+            // Hier kommen alle Teile der Simulation in der passenden Reihenfolge rein
+            AlleBewohnerArbeiten();
+
+            Console.WriteLine("Simulation der Runde " + SpaceGame.Daten.Runde + " fertig.");
+        }
+
+        
+        static void AlleBewohnerArbeiten()
+        {
+            // Alle Bewohner arbeiten und erzeugen damit Spookies und Metall
+            // Falls die Bewohner weniger als 10% des vorhandenen Metalls sind,
+            // können sie sich um 3% vermehren
+            foreach (Sektor s in SpaceGame.Daten.Sektoren)
+            {
+                s.Spookies += s.Bewohner;
+                s.Metall += s.Bewohner;
+                if(s.Bewohner < (int)(0.1*s.Metall))
+                {
+                    s.Bewohner += (int)(0.03 * s.Bewohner);
+                }
+            }
         }
 
         static void TestdatenErzeugen()
