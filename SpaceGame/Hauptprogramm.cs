@@ -15,6 +15,7 @@ namespace SpaceGame
             //   - Befehl ERPRESSE gibt eigenen Fraktion mehr Resourcen
             // - Befehle einlesen und bearbeiten
             // - Auswertungen für jede Faktion einzeln ausgeben
+            // - Neue Resource: Sprit, benötigt zum Truppen bewegen
 
             SpaceGame.Laden("test.xml");
             Console.WriteLine("Spiel geladen");
