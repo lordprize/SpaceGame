@@ -10,6 +10,8 @@ namespace SpaceGame
         {
             // ToDo:
             // - Befehle definieren
+            //   - Befehl NACH zum Bewegen
+            //   - Befehl ATTACKIERE zum Angreifen
             // - Befehle einlesen und bearbeiten
             // - Auswertungen für jede Faktion einzeln ausgeben
 
