@@ -64,7 +64,7 @@ namespace SpaceGame
 
         public override string ToString()
         {
-            return "  Einheit " + Name + " (" + Nummer + "), " + Faktion.ToString() + ", " + Mitglieder + " Personen, " + Spookies + " Spookies, " + Metall + " Metall.\n";
+            return "  Einheit " + Name + " (" + Nummer + "), " + Faktion.ToString() + ", " + Mitglieder + " Personen, " + Spookies + " Spookies, " + Metall + " Metall." + System.Environment.NewLine;
         }
     }
 }

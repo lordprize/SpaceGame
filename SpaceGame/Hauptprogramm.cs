@@ -202,6 +202,7 @@ namespace SpaceGame
             s0.Metall = 100000;
             s0.Spookies = 20000;
             s0.Bewohner = 3244;
+            SpaceGame.Daten.Sektoren.Add(s0);
 
             Sektor s1 = new Sektor();
             s1.Name = "Beteigeuze";
@@ -210,6 +211,7 @@ namespace SpaceGame
             s1.Metall = 100000;
             s1.Spookies = 200;
             s1.Bewohner = 30;
+            SpaceGame.Daten.Sektoren.Add(s1);
 
             Sektor s2 = new Sektor();
             s2.Name = "Rigel";
@@ -218,7 +220,8 @@ namespace SpaceGame
             s2.Metall = 50;
             s2.Spookies = 1000;
             s2.Bewohner = 300;
-            
+            SpaceGame.Daten.Sektoren.Add(s2);
+
             Sektor s3 = new Sektor();
             s3.Name = "Azeroth";
             s3.X = 1;
@@ -226,10 +229,7 @@ namespace SpaceGame
             s3.Metall = 350;
             s3.Spookies = 1430;
             s3.Bewohner = 250;
-
-            SpaceGame.Daten.Sektoren.Add(s0);
-            SpaceGame.Daten.Sektoren.Add(s1);
-            SpaceGame.Daten.Sektoren.Add(s2);
+            SpaceGame.Daten.Sektoren.Add(s3);
 
             Faktion polizei = new Faktion("poli", "zei", "Raumpolizei");
             Faktion piraten = new Faktion("pi", "raten", "FiesRaumPiraten");

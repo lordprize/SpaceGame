@@ -18,13 +18,13 @@ namespace SpaceGame
 
         public override string ToString()
         {
-            string ausgabe = String.Format("Sektor {0} ({1},{2}) hat {3} Bewohner, {4} Spookies und {5} Metall.\n", Name, X, Y, Bewohner, Spookies, Metall);
+            string ausgabe = String.Format("Sektor {0} ({1},{2}) hat {3} Bewohner, {4} Spookies und {5} Metall." + System.Environment.NewLine, Name, X, Y, Bewohner, Spookies, Metall);
             if(Einheiten.Count == 0)
             {
-                ausgabe += "Es sind keine Einheiten in diesem Sektor.\n";
+                ausgabe += "Es sind keine Einheiten in diesem Sektor." + System.Environment.NewLine;
             } else
             {
-                ausgabe += "Es sind folgende " + Einheiten.Count + " Einheiten in diesem Sektor:\n";
+                ausgabe += "Es sind folgende " + Einheiten.Count + " Einheiten in diesem Sektor:" + System.Environment.NewLine;
                 foreach (Einheit einheit in Einheiten)
                 {
                     ausgabe += einheit.ToString();
