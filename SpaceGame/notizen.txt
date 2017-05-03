@@ -3,4 +3,5 @@
 FAKTION - Login als Faktion
 FAKTIONSENDE - Logout als Faktion
 EINHEIT - Einheit auswählen
+NACH - Bewegung einer Einheit nach oben, unten, links oder rechts
 

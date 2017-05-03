@@ -91,6 +91,16 @@ namespace SpaceGame
                             Console.WriteLine("Fehler in Befehlszeile " + zeilennummer + ". Der Befehl war: " + zeile);
                         }
                         break;
+                    case "NACH":
+                        // Einheit bewegen
+                        if(e != null)
+                        {
+                            e.LangerBefehl = (string[])teile.Clone();
+                        } else
+                        {
+                            Console.WriteLine("Fehler in Befehlszeile " + zeilennummer + " (Keine Einheit ausgewählt). Der Befehl war: " + zeile);
+                        }
+                        break;
                     default:
                         Console.WriteLine("Unbekannter Befehl in Zeile " + zeilennummer + ". Der Befehl war: " + zeile);
                         break;
@@ -167,6 +177,7 @@ namespace SpaceGame
             Console.WriteLine("Simuliere Runde " + SpaceGame.Daten.Runde);
             // Hier kommen alle Teile der Simulation in der passenden Reihenfolge rein
             AlleBewohnerArbeiten();
+            EinheitenBewegen();
 
             Console.WriteLine("Simulation der Runde " + SpaceGame.Daten.Runde + " fertig.");
         }
@@ -185,6 +196,45 @@ namespace SpaceGame
                 {
                     s.Bewohner += (int)(0.03 * s.Bewohner);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Bewegt alle Einheiten, die sich bewegen wollten
+        /// </summary>
+        static void EinheitenBewegen()
+        {
+            foreach(Einheit e in SpaceGame.HoleAlleEinheiten())
+            {
+                if(e.LangerBefehl == null || e.LangerBefehl[0].ToUpper() != "NACH" || e.LangerBefehl.Length != 2)
+                {
+                    // Einheit wollte sich gar nicht bewegen - überspringen
+                    continue;
+                }
+                string richtung = e.LangerBefehl[1].ToUpper();
+                int dx = 0;
+                int dy = 0;
+                switch(richtung)
+                {
+                    case "OBEN": dy = -1; break;
+                    case "UNTEN": dy = 1; break;
+                    case "LINKS": dx = -1; break;
+                    case "RECHTS": dx = 1; break;
+                    default:
+                        Console.WriteLine("Fehler im NACH-Befehl von Einheit " + e.Nummer + ". Richtung " + richtung + " nicht erkannt.");
+                        continue;
+                }
+                int x = e.Sektor.X + dx;
+                int y = e.Sektor.Y + dy;
+                Sektor ziel = SpaceGame.FindeSektor(x, y);
+                if(ziel == null)
+                {
+                    Console.WriteLine("Fehler im NACH-Befehl von Einheit " + e.Nummer + ". Bei (" + x + "," + y + ") gibt es keinen Sektor.");
+                    continue;
+                }
+                // Wir haben einen gültigen Zielsektor. Bewege die Einheit!
+                e.Sektor = ziel;
+                ziel.Einheiten.Add(e);
             }
         }
 

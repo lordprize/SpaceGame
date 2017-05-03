@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Xml.Serialization;
 
 namespace SpaceGame
@@ -80,6 +81,19 @@ namespace SpaceGame
                     e.Sektor = s;
                 }
             }
+        }
+
+        public static List<Einheit> HoleAlleEinheiten()
+        {
+            List<Einheit> ergebnis = new List<Einheit>();
+            foreach (Sektor s in SpaceGame.Daten.Sektoren)
+            {
+                foreach (Einheit e in s.Einheiten)
+                {
+                    ergebnis.Add(e);
+                }
+            }
+            return ergebnis;
         }
     }
 }

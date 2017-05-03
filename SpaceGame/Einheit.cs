@@ -15,9 +15,9 @@ namespace SpaceGame
 
         // private und XmlIgnore Felder werden nicht mitgespeichert, sondern dienen als temporäre Variablen für die aktuelle Runde
         [XmlIgnore]
-        public string LangerBefehl = null;
+        public string[] LangerBefehl = null;
         [XmlIgnore]
-        public List<string> Befehle = new List<string>();
+        public List<string[]> Befehle = new List<string[]>();
         private Sektor sektor = null;
 
         public Einheit()
@@ -57,6 +57,7 @@ namespace SpaceGame
                 {
                     sektor.Einheiten.Remove(this);
                 }
+                // Ändere Sektor
                 sektor = value;
             }
         }

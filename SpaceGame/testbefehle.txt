@@ -14,12 +14,16 @@ Dreh dich im Kreis
 FAKTION 1 poli zei
 # richtige Einheit
 EINHEIT 1 
+NACH unten
 # falsche Einheit
 EINHEIT 2
+nach oben
 # ende der faktion
 FAKTIONSENDE
 
 faktioN 2 pi raten
+einheit 2
+nach unten
 faktionsende
 
 faktion 3 moe nch
@@ -27,5 +31,6 @@ faktion 3 moe nch
 EINHEIT 3
 # richtige Einheit
 einheit 5
+nach links
 faktionsENDE
 
