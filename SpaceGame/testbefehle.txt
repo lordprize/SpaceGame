@@ -1,0 +1,19 @@
+﻿# Test einer Befehlsdatei
+
+
+# als erstes testen wir einen falschen Login:
+FAKTION 344534 falsch falsch
+
+# unbekannter befehl
+Dreh dich im Kreis
+
+# richtige Faktionen:
+FAKTION 1 poli zei
+FAKTIONSENDE
+
+faktioN 2 pi raten
+faktionsende
+
+faktion 3 moe nch
+faktionsENDE
+

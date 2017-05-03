@@ -1,0 +1,5 @@
+﻿Bisher implementierte Befehle:
+
+FAKTION - Login als Faktion
+FAKTIONSENDE - Logout als Faktion
+

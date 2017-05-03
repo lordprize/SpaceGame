@@ -21,8 +21,9 @@ namespace SpaceGame
             TestdatenErzeugen();
             Console.WriteLine("Spiel geladen");
 
+            LeseBefehle("testbefehle.txt");
             SimuliereRunde();
-
+            
             StreamWriter auswertung = File.CreateText("auswertung-" + SpaceGame.Daten.Runde + ".txt");
             auswertung.WriteLine("Auswertung für SpaceGame, Runde " + SpaceGame.Daten.Runde);
             foreach(Sektor s in SpaceGame.Daten.Sektoren)
@@ -35,6 +36,87 @@ namespace SpaceGame
 
             SpaceGame.Speichern("test.xml");
             Console.WriteLine("Spiel gespeichert");
+        }
+
+        /// <summary>
+        /// Liest die Befehle ein, prüft Logindaten und ordnet die Befehle den richtigen Einheiten zu.
+        /// Zeilen, die mit # beginnen, sind Kommentarzeilen. Leere Zeilen werden ignoriert.
+        /// </summary>
+        /// <param name="dateiname">Dateiname der Befehlsdatei</param>
+        static void LeseBefehle(string dateiname)
+        {
+            StreamReader befehle = File.OpenText(dateiname);
+            Faktion f = null;
+            Einheit e = null;
+            int zeilennummer = 0;
+            while (!befehle.EndOfStream)
+            {
+                string zeile = befehle.ReadLine();
+                zeilennummer++;
+                // Ersetze allen Whitespace (Tab, Leerzeichen) durch ein einzelnes Leerzeichen
+                zeile = System.Text.RegularExpressions.Regex.Replace(zeile, @"\s+", " ");
+                // Entferne Leerzeichen am Anfang und am Ende der Zeile
+                zeile = zeile.Trim();
+                if (zeile.Length == 0)
+                {
+                    // Überspringe leere Befehlszeilen
+                    continue;
+                }
+                string[] teile = zeile.Split(' ');
+
+                string befehl = teile[0].ToUpper();
+                if(befehl.StartsWith("#"))
+                {
+                    // Kommentar überspringen
+                    continue;
+                }
+                switch (befehl)
+                {
+                    case "FAKTION":
+                        f = PrüfeBefehlFaktion(teile);
+                        if (f == null)
+                        {
+                            Console.WriteLine("Fehler in Befehlszeile " + zeilennummer + ". Der Befehl war: " + zeile);
+                        }
+                        break;
+                    case "FAKTIONSENDE":
+                        // Logout als Faktion
+                        f = null;
+                        break;
+                    default:
+                        Console.WriteLine("Unbekannter Befehl in Zeile " + zeilennummer + ". Der Befehl war: " + zeile);
+                        break;
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// Prüft, ob der Befehl "FAKTION faktionsnr username passwort" passt.
+        /// Liefert bei Erfolg die neue Faktion zurück, ansonsten null.
+        /// </summary>
+        /// <param name="teile">Ein string-Array mit den vier Bestandteilen des Befehls</param>
+        static Faktion PrüfeBefehlFaktion(string[] teile)
+        {
+            if (teile.Length != 4)
+            {
+                return null;
+            }
+            int faktionsnummer = -1;
+            if (!int.TryParse(teile[1], out faktionsnummer))
+            {
+                return null;
+            }
+            Faktion kandidat = SpaceGame.FindeFaktion(faktionsnummer);
+            if (kandidat == null)
+            {
+                return null;
+            }
+            if (kandidat.Benutzername == teile[2] && kandidat.Passwort == teile[3])
+            {
+                return kandidat;
+            }
+            return null;
         }
 
         static void SimuliereRunde()
