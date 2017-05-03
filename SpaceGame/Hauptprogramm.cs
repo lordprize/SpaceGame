@@ -83,6 +83,14 @@ namespace SpaceGame
                         // Logout als Faktion
                         f = null;
                         break;
+                    case "EINHEIT":
+                        // Einheit auswählen
+                        e = PrüfeBefehlEinheit(teile, f);
+                        if(e == null)
+                        {
+                            Console.WriteLine("Fehler in Befehlszeile " + zeilennummer + ". Der Befehl war: " + zeile);
+                        }
+                        break;
                     default:
                         Console.WriteLine("Unbekannter Befehl in Zeile " + zeilennummer + ". Der Befehl war: " + zeile);
                         break;
@@ -96,6 +104,7 @@ namespace SpaceGame
         /// Liefert bei Erfolg die neue Faktion zurück, ansonsten null.
         /// </summary>
         /// <param name="teile">Ein string-Array mit den vier Bestandteilen des Befehls</param>
+        /// <returns>Die passende Faktion, sonst null</returns>
         static Faktion PrüfeBefehlFaktion(string[] teile)
         {
             if (teile.Length != 4)
@@ -112,11 +121,44 @@ namespace SpaceGame
             {
                 return null;
             }
-            if (kandidat.Benutzername == teile[2] && kandidat.Passwort == teile[3])
+            if (kandidat.Benutzername != teile[2] || kandidat.Passwort != teile[3])
             {
-                return kandidat;
+                Console.WriteLine("Falsche Logindaten für Faktion " + kandidat.Nummer);
+                return null;
             }
-            return null;
+            return kandidat;
+        }
+
+        /// <summary>
+        /// Prüft, ob der Befehl "EINHEIT einheitennr" passt und die entsprechende Faktion
+        /// berechtigt ist, diese Einheit zu befehligen.
+        /// Liefert bei Erfolg die passende Einheit zurück, sonst null.
+        /// </summary>
+        /// <param name="teile">Ein string-Array mit den vier Bestandteilen des Befehls</param>
+        /// <param name="f">Die aktive Faktion</param>
+        /// <returns>Die passende Einheit, sonst null</returns>
+        static Einheit PrüfeBefehlEinheit(string[] teile, Faktion f)
+        {
+            if(teile.Length < 2 || f == null)
+            {
+                return null;
+            }
+            int einheitennummer = -1;
+            if (!int.TryParse(teile[1], out einheitennummer))
+            {
+                return null;
+            }
+            Einheit einheit = SpaceGame.FindeEinheit(einheitennummer);
+            if(einheit == null)
+            {
+                return null;
+            }
+            if(einheit.Faktion != f)
+            {
+                Console.WriteLine("Falsche Faktion für Einheit " + einheit.Nummer);
+                return null;
+            }
+            return einheit;
         }
 
         static void SimuliereRunde()
