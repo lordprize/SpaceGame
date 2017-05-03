@@ -13,7 +13,7 @@ namespace SpaceGame
         public int Mitglieder;
 
         private string langerBefehl = null;
-        private List<string> kurzeBefehle = new List<string>();
+        private List<string> befehle = new List<string>();
 
         public Einheit()
         {
@@ -49,16 +49,16 @@ namespace SpaceGame
             }
         }
 
-        public List<string> KurzeBefehle
+        public List<string> Befehle
         {
             get
             {
-                return kurzeBefehle;
+                return befehle;
             }
 
             set
             {
-                kurzeBefehle = value;
+                befehle = value;
             }
         }
 
