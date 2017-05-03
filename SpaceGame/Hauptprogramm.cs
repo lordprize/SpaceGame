@@ -268,6 +268,7 @@ namespace SpaceGame
             moench1.Spookies = 150;
             s0.Einheiten.Add(moench1);
 
+            SpaceGame.ErstelleEinheitSektorReferenzen();
         }
     }
 }

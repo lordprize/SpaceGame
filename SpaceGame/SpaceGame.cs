@@ -20,6 +20,7 @@ namespace SpaceGame
             TextReader savegamereader = new StreamReader(dateiname);
             daten = (SpaceGameData)sektorserializer.Deserialize(savegamereader);
             savegamereader.Close();
+            ErstelleEinheitSektorReferenzen();
         }
         public static void Speichern(string dateiname)
         {
@@ -68,6 +69,17 @@ namespace SpaceGame
                 }
             }
             return null;
+        }
+
+        public static void ErstelleEinheitSektorReferenzen()
+        {
+            foreach (Sektor s in SpaceGame.Daten.Sektoren)
+            {
+                foreach (Einheit e in s.Einheiten)
+                {
+                    e.Sektor = s;
+                }
+            }
         }
     }
 }

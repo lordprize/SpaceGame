@@ -1,19 +1,24 @@
 ﻿using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace SpaceGame
 {
     public class Einheit
     {
+        // Nicht ignorierte Public-Felder werden im Savegame gespeichert
         public int FaktionsNummer;
         public string Name;
         public int Nummer;
-
         public int Spookies;
         public int Metall;
         public int Mitglieder;
 
-        private string langerBefehl = null;
-        private List<string> befehle = new List<string>();
+        // private und XmlIgnore Felder werden nicht mitgespeichert, sondern dienen als temporäre Variablen für die aktuelle Runde
+        [XmlIgnore]
+        public string LangerBefehl = null;
+        [XmlIgnore]
+        public List<string> Befehle = new List<string>();
+        private Sektor sektor = null;
 
         public Einheit()
         {
@@ -36,29 +41,23 @@ namespace SpaceGame
             }
         }
 
-        public string LangerBefehl
+        // Der Sektor darf nicht extra in XML gespeichert werden
+        [XmlIgnore]
+        public Sektor Sektor
         {
             get
             {
-                return langerBefehl;
+                return sektor;
             }
 
             set
             {
-                langerBefehl = value;
-            }
-        }
-
-        public List<string> Befehle
-        {
-            get
-            {
-                return befehle;
-            }
-
-            set
-            {
-                befehle = value;
+                // Beim Setzen muss die Einheit aus dem alten Sektor entfernt werden
+                if(sektor != null)
+                {
+                    sektor.Einheiten.Remove(this);
+                }
+                sektor = value;
             }
         }
 
