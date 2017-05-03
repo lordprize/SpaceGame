@@ -17,9 +17,9 @@ namespace SpaceGame
             // - Auswertungen für jede Faktion einzeln ausgeben
             // - Neue Resource: Sprit, benötigt zum Truppen bewegen
 
-            SpaceGame.Laden("test.xml");
+            //SpaceGame.Laden("test.xml");
+            TestdatenErzeugen();
             Console.WriteLine("Spiel geladen");
-            //TestdatenErzeugen();
 
             SimuliereRunde();
 
@@ -96,7 +96,7 @@ namespace SpaceGame
             s2.Bewohner = 300;
             
             Sektor s3 = new Sektor();
-            s3.Name = "azeroth";
+            s3.Name = "Azeroth";
             s3.X = 1;
             s3.Y = 0;
             s3.Metall = 350;
@@ -109,7 +109,7 @@ namespace SpaceGame
 
             Faktion polizei = new Faktion("poli", "zei", "Raumpolizei");
             Faktion piraten = new Faktion("pi", "raten", "FiesRaumPiraten");
-            Faktion piraten = new Faktion("moe", "nch", "FriedvollMoenche");
+            Faktion moench = new Faktion("moe", "nch", "FriedvollMoenche");
             SpaceGame.Daten.Faktionen.Add(polizei);
             SpaceGame.Daten.Faktionen.Add(piraten);
             SpaceGame.Daten.Faktionen.Add(moench);
