@@ -1,4 +1,6 @@
-﻿namespace SpaceGame
+﻿using System.Collections.Generic;
+
+namespace SpaceGame
 {
     public class Einheit
     {
@@ -9,6 +11,9 @@
         public int Spookies;
         public int Metall;
         public int Mitglieder;
+
+        private string langerBefehl = null;
+        private List<string> kurzeBefehle = new List<string>();
 
         public Einheit()
         {
@@ -31,7 +36,31 @@
             }
         }
 
-        
+        public string LangerBefehl
+        {
+            get
+            {
+                return langerBefehl;
+            }
+
+            set
+            {
+                langerBefehl = value;
+            }
+        }
+
+        public List<string> KurzeBefehle
+        {
+            get
+            {
+                return kurzeBefehle;
+            }
+
+            set
+            {
+                kurzeBefehle = value;
+            }
+        }
 
         public override string ToString()
         {
