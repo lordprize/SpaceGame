@@ -180,7 +180,7 @@ namespace SpaceGame
             Sektor s3 = new Sektor();
             s3.Name = "Azeroth";
             s3.X = 1;
-            s3.Y = 0;
+            s3.Y = 1;
             s3.Metall = 350;
             s3.Spookies = 1430;
             s3.Bewohner = 250;
