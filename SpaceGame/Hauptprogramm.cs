@@ -17,9 +17,12 @@ namespace SpaceGame
             // - Auswertungen für jede Faktion einzeln ausgeben
             // - Neue Resource: Sprit, benötigt zum Truppen bewegen
 
-            //SpaceGame.Laden("test.xml");
-            TestdatenErzeugen();
-            Console.WriteLine("Spiel geladen");
+            if (File.Exists("savegame.xml")) {
+                SpaceGame.Laden("savegame.xml");
+            } else {
+                TestdatenErzeugen();
+            }
+            Console.WriteLine("Spiel geladen, starte Auswertung mit Random-Seed " + SpaceGame.Daten.NächsterRandomSeed);
 
             LeseBefehle("testbefehle.txt");
             SimuliereRunde();
@@ -34,7 +37,7 @@ namespace SpaceGame
             auswertung.Close();
             Console.WriteLine("Auswertung fertig geschrieben");
 
-            SpaceGame.Speichern("test.xml");
+            SpaceGame.Speichern("savegame.xml");
             Console.WriteLine("Spiel gespeichert");
         }
 
@@ -182,7 +185,7 @@ namespace SpaceGame
             Console.WriteLine("Simulation der Runde " + SpaceGame.Daten.Runde + " fertig.");
         }
 
-        
+
         static void AlleBewohnerArbeiten()
         {
             // Alle Bewohner arbeiten und erzeugen damit Spookies und Metall

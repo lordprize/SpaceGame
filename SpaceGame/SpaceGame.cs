@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 
@@ -6,12 +7,25 @@ namespace SpaceGame
 {
     public static class SpaceGame {
         private static SpaceGameData daten = new SpaceGameData();
+        private static System.Random zufall;
 
         public static SpaceGameData Daten
         {
             get
             {
                 return daten;
+            }
+        }
+
+        public static Random Zufall
+        {
+            get
+            {
+                if(zufall == null)
+                {
+                    zufall = new Random(Daten.NächsterRandomSeed);
+                }
+                return zufall;
             }
         }
 
@@ -25,6 +39,7 @@ namespace SpaceGame
         }
         public static void Speichern(string dateiname)
         {
+            Daten.NächsterRandomSeed = Zufall.Next();
             XmlSerializer sektorserializer = new XmlSerializer(typeof(SpaceGameData));
             TextWriter savegamewriter = new StreamWriter(dateiname);
             sektorserializer.Serialize(savegamewriter, daten);
@@ -83,6 +98,10 @@ namespace SpaceGame
             }
         }
 
+        /// <summary>
+        /// Liefert eine zufällig sortiere Liste aller Einheiten im Spiel
+        /// </summary>
+        /// <returns>eine zufällig sortiere Liste aller Einheiten im Spiel</returns>
         public static List<Einheit> HoleAlleEinheiten()
         {
             List<Einheit> ergebnis = new List<Einheit>();
