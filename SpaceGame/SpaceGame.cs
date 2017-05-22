@@ -112,7 +112,27 @@ namespace SpaceGame
                     ergebnis.Add(e);
                 }
             }
+            MischenListe(ergebnis);
             return ergebnis;
+        }
+
+        /// <summary>
+        /// Mischt eine Liste mit Hilfe des spieleigenen Zufallsgenerators
+        /// nach dem Mischalgorithmus von Fisher und Yates
+        /// </summary>
+        /// <typeparam name="T">Der Datentyp der Objekte in der Liste</typeparam>
+        /// <param name="list">Die zu mischende Liste</param>
+        public static void MischenListe<T>(IList<T> list)
+        {
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = Zufall.Next(n + 1);
+                T value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
         }
     }
 }
