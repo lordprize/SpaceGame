@@ -24,6 +24,8 @@ FAKTIONSENDE
 faktioN 2 pi raten
 einheit 2
 nach unten
+einheit 3
+rekrutiere 5
 faktionsende
 
 faktion 3 moe nch

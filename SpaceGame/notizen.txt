@@ -4,4 +4,4 @@ FAKTION - Login als Faktion
 FAKTIONSENDE - Logout als Faktion
 EINHEIT - Einheit auswählen
 NACH - Bewegung einer Einheit nach oben, unten, links oder rechts
-
+REKRUTIERE - Einheit macht aus Sektor-Bewohnern Mitglieder der Einheit. Kosten: 10 Spookies pro Person.

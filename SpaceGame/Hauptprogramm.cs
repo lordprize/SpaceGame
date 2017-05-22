@@ -104,6 +104,16 @@ namespace SpaceGame
                             Console.WriteLine("Fehler in Befehlszeile " + zeilennummer + " (Keine Einheit ausgewählt). Der Befehl war: " + zeile);
                         }
                         break;
+                    case "REKRUTIERE":
+                        if (e != null)
+                        {
+                            e.Befehle.Add((string[])teile.Clone());
+                        }
+                        else
+                        {
+                            Console.WriteLine("Fehler in Befehlszeile " + zeilennummer + " (Keine Einheit ausgewählt). Der Befehl war: " + zeile);
+                        }
+                        break;
                     default:
                         Console.WriteLine("Unbekannter Befehl in Zeile " + zeilennummer + ". Der Befehl war: " + zeile);
                         break;
@@ -180,6 +190,7 @@ namespace SpaceGame
             Console.WriteLine("Simuliere Runde " + SpaceGame.Daten.Runde);
             // Hier kommen alle Teile der Simulation in der passenden Reihenfolge rein
             AlleBewohnerArbeiten();
+            EinheitenRekrutierenPersonen();
             EinheitenBewegen();
 
             Console.WriteLine("Simulation der Runde " + SpaceGame.Daten.Runde + " fertig.");
@@ -198,6 +209,42 @@ namespace SpaceGame
                 if(s.Bewohner < (int)(0.1*s.Metall))
                 {
                     s.Bewohner += (int)(0.03 * s.Bewohner);
+                }
+            }
+        }
+
+        static void EinheitenRekrutierenPersonen()
+        {
+            foreach (Einheit e in SpaceGame.HoleAlleEinheiten())
+            {
+                foreach(string[] befehl in e.Befehle)
+                {
+                    if(befehl[0].ToUpper() == "REKRUTIERE")
+                    {
+                        // Bingo - diese Einheit will rekrutieren
+                        int anzahl = 0;
+                        if(!int.TryParse(befehl[1], out anzahl))
+                        {
+                            Console.WriteLine("Fehler im REKRUTIERE-Befehl: keine gültige Anzahl");
+                            continue; // Zeile überspringen
+                        }
+                        if(anzahl < 1)
+                        {
+                            Console.WriteLine("Fehler im REKRUTIERE-Befehl: keine gültige Anzahl");
+                            continue; // Zeile überspringen
+                        }
+                        // die Einheit kann nicht mehr rekrutieren, als es Bewohner gibt
+                        anzahl = Math.Min(anzahl, e.Sektor.Bewohner);
+                        // die Einheit kann nicht mehr rekrutieren, als sie sich leisten kann (10 Spookies pro Person)
+                        anzahl = Math.Min(anzahl, e.Spookies / 10);
+
+                        // Führe die Rekrutierung durch
+                        e.Sektor.Bewohner -= anzahl;
+                        e.Mitglieder += anzahl;
+                        e.Sektor.Spookies += anzahl * 10;
+                        e.Spookies -= anzahl * 10;
+                        Console.WriteLine("Einheit " + e.Nummer + " in (" + e.Sektor.X + "/" + e.Sektor.Y + ") rekrutiert " + anzahl + " Mitglieder.");
+                    }
                 }
             }
         }
